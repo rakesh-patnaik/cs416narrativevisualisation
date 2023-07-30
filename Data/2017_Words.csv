@@ -1,50 +1,51 @@
-new, 1365
-trump, 1341
-australia, 1296
-police, 1203
-australian, 987
-us, 839
-nsw, 759
-government, 748
-sydney, 726
-court, 726
-donald, 702
-election, 608
-sex, 550
-death, 496
-attack, 489
-fire, 475
-big, 441
-murder, 427
-woman, 410
-national, 406
-school, 403
-health, 389
-found, 381
-charged, 372
-korea, 369
-indigenous, 363
-test, 362
-people, 357
-power, 355
-life, 350
-women, 346
-family, 344
-high, 344
-crash, 342
-dies, 341
-china, 334
-hospital, 333
-child, 332
-rural, 330
-marriage, 327
-budget, 327
-win, 314
-car, 307
-cup, 306
-report, 305
-business, 303
-federal, 303
-deal, 295
-ban, 285
-help, 284
+Name,Count
+new,1365
+trump,1341
+australia,1296
+police,1203
+australian,987
+us,839
+nsw,759
+government,748
+sydney,726
+court,726
+donald,702
+election,608
+sex,550
+death,496
+attack,489
+fire,475
+big,441
+murder,427
+woman,410
+national,406
+school,403
+health,389
+found,381
+charged,372
+korea,369
+indigenous,363
+test,362
+people,357
+power,355
+life,350
+women,346
+family,344
+high,344
+crash,342
+dies,341
+china,334
+hospital,333
+child,332
+rural,330
+marriage,327
+budget,327
+win,314
+car,307
+cup,306
+report,305
+business,303
+federal,303
+deal,295
+ban,285
+help,284
