@@ -16,7 +16,7 @@ div.tooltip {
   height: 45px;
   padding: 2px;
   font: 20px sans-serif;
-  background: white;
+  background: #65af16;
   border: 5px;
   border-color: black;
   border-radius: 8px;
@@ -34,7 +34,7 @@ introWeak {
   font-size: 12px;
 }
 
-.trumpbutton {
+.button2021 {
 
   border: none;
   color: black;
@@ -47,7 +47,7 @@ introWeak {
   cursor: pointer;
 }
 
-.trumpbutton:focus {
+.button2021:focus {
   background-color: #ad0052;
   border: none;
   color: white;
@@ -60,7 +60,7 @@ introWeak {
   cursor: pointer;
 }
 
-.clintonbutton {
+.button2020 {
 
   border: none;
   color: black;
@@ -73,7 +73,7 @@ introWeak {
   cursor: pointer;
 }
 
-.clintonbutton:focus {
+.button2020:focus {
   background-color: #266d44;
   border: none;
   color: white;
@@ -86,7 +86,7 @@ introWeak {
   cursor: pointer;
 }
 
-.obamabutton {
+.button2019 {
 
   border: none;
   color: black;
@@ -99,7 +99,7 @@ introWeak {
   cursor: pointer;
 }
 
-.obamabutton:focus {
+.button2019:focus {
   background-color: #2A9CBE;
   border: none;
   color: white;
@@ -112,7 +112,7 @@ introWeak {
   cursor: pointer;
 }
 
-.bushbutton {
+.button2018 {
 
   border: none;
   color: black;
@@ -125,7 +125,7 @@ introWeak {
   cursor: pointer;
 }
 
-.bushbutton:focus {
+.button2018:focus {
   background-color: black;
   border: none;
   color: white;
@@ -138,7 +138,7 @@ introWeak {
   cursor: pointer;
 }
 
-.mirandabutton {
+.button2017 {
 
   border: none;
   color: black;
@@ -151,7 +151,7 @@ introWeak {
   cursor: pointer;
 }
 
-.mirandabutton:focus {
+.button2017:focus {
   background-color: #e5a541;
   border: none;
   color: white;

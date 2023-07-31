@@ -21,65 +21,64 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col" style="background-color:lavender;">
-        <div class="jumbotron text-center" style="background-color:lavender;margin-bottom:0">
+        <div class="text-center" style="background-color:lavender;margin-bottom:0">
           <h1>ABC news headlines 2017 - 2021</h1>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-2" style="background-color:rgb(230, 250, 239);">
-        <h3>Select a Year to Analyze and Compare</h3>
-        <p>Explore further and gain insight.</p>
+      <div class="col-sm-1" style="background-color:rgb(230, 250, 239);">
+        <h3>Year Selection</h3>
+        <p>Explore News Headlines in a given year to gain further insight or compare YoY</p>
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
-            <input id="2021" name="updateButton1" type="button" autofocus class="trumpbutton" value="Year 2021"
+            <input id="2021" name="updateButton1" type="button" autofocus class="button2021" value="Year 2021"
               onclick="updateData('2021','Year 2021')" />
           </li>
           <li class="nav-item">
           </li>
           <li class="nav-item">
-            <input id="2020" name="updateButton1" type="button" autofocus class="trumpbutton" value="Year 2020"
+            <input id="2020" name="updateButton2" type="button" autofocus class="button2020" value="Year 2020"
               onclick="updateData('2020','Year 2020')" />
           </li>
           <li class="nav-item">
           </li>
           <li class="nav-item">
-            <input id="2019" name="updateButton1" type="button" autofocus class="trumpbutton" value="Year 2019"
+            <input id="2019" name="updateButton3" type="button" autofocus class="button2019" value="Year 2019"
               onclick="updateData('2021','Year 2019')" />
           </li>
           <li class="nav-item">
           </li>
           <li class="nav-item">
-            <input id="2018" name="updateButton1" type="button" autofocus class="trumpbutton" value="Year 2018"
+            <input id="2018" name="updateButton4" type="button" autofocus class="button2018" value="Year 2018"
               onclick="updateData('2018','Year 2018')" />
           </li>
           <li class="nav-item">
           </li>
           <li class="nav-item">
-            <input id="2017" name="updateButton1" type="button" autofocus class="trumpbutton" value="Year 2017"
+            <input id="2017" name="updateButton5" type="button" autofocus class="button2017" value="Year 2017"
               onclick="updateData('2017','Year 2017')" />
           </li>
+          <li class="nav-item">
+            <input name="updateButton6" id="Compare" type="button" class="comparebutton" value="Compare YoY"
+              onclick="compareAll()" />
+          </li>
+
         </ul>
         <hr class="d-sm-none">
       </div>
 
-      <div class="col-sm-10">
-        <div class="row">
+      <div class="col-sm-11">
+        <div class="row" style="background-color:lavender;">
           <div id="divTitle">
             <h2 id="pTitle">Top Words in News Headlines in the Year </h2>
           </div>
-          <div id="charts"></div>
-
-        </div>
-        <div class="row">
-          <div class="col" style="background-color:lavender;">
+          <div id="divIntro"></div>
+          <div class="col">
             <p id="Year" hidden>Year</p>
             <p id="Mode" hidden>Mode</p>
             <p id="shortYear" hidden>shortYear</p>
-            <div id="divIntro">
-              <p></p>
-            </div>
-            <div class="container">
+            <div class="container" style="background-color:greenyellow;">
               <form>
                 <label class="radio-inline" id="L1">
                   <input type="radio" name="optradio" id="Words" checked onclick="fireUp()">Words
@@ -91,34 +90,29 @@
                   <input type="radio" name="optradio" id="Places" onclick="fireUp()">Places
                 </label>
                 <label class="radio-inline" id="L4">
-                  <input type="radio" name="optradio" id="Things" onclick="fireUp()">Organizations
+                  <input type="radio" name="optradio" id="Organization" onclick="fireUp()">Organizations
                 </label>
 
               </form>
             </div>
           </div>
         </div>
-        <div class="row">
+
+        <div class="row" id="chartsdiv">
           <div id="charts">
-
-
           </div>
-
         </div>
 
       </div>
       <div class="row text-center">
         <p id="disclaimer">
-          <introWeak>Source of data is <a
-              href=https://www.kaggle.com/datasets/littleotter/united-states-presidential-speeches>United States
-              Presidential
-              Speeches</a>. Common
-            stopwords removed. Analysis done in Python with <a
-              href=https://spacy.io/usage/linguistic-features#named-entities>Spacy NER</a>, Visuals done with <a
-              href=https://d3js.org>D3.js</a>. <br> <a
+          <introWeak>Source of data is <a href=https://www.kaggle.com/datasets/therohk/million-headlines>A Million News
+              Headlines</a>. Word extraction and analys was done in Python with <a
+              href=https://spacy.io/usage/linguistic-features#named-entities>Spacy NER</a>, Graph redenring was done
+            using <a href=https://d3js.org>D3.js</a>. <br> <a
               href=https://en.wikipedia.org/wiki/Natural_language_processing>NLP</a>
-            is not a perfect science, hence data is meant to be a close approximation. Created by <a
-              href=https://www.linkedin.com/in/sheena-albert />Sheena Albert.</a></introWeak>
+            is not a perfect science, hence data is meant to be a close approximation. Author of this visualization <a
+              href=https://www.linkedin.com/in/rakeshpatnaik />Rakesh Patnaik.</a></introWeak>
         </p>
 
       </div>
@@ -179,43 +173,43 @@
         document.getElementById("shortYear").innerHTML = shortYear;
         checkMode();
         thisMode = document.getElementById("Mode").innerHTML;
-        SpeechFile = "Data/" + shortYear + "_" + thisMode + ".csv"
+        NewsFile = "Data/" + shortYear + "_" + thisMode + ".csv"
 
         if (Year == "Year 2021") {
-          var totalWords = 14340
-          var uniqueWords = 2197
-          var approxHeadlines = 213
-          var color = d3v5.scaleOrdinal(["#ffa200", "#719a2e", "#ad0052", "#ea2c01", "#eac016", "#156eb7", "#dc317e"]);
-        }
-        else if (Year == "Year 2020") {
-          var totalWords = 38203
-          var uniqueWords = 5983
-          var approxHeadlines = 500
+          var totalWords = 141213
+          var uniqueWords = 16965
+          var approxHeadlines = 17926
           var color = d3v5.scaleOrdinal(["#304377", "#3355FF", "#3377FF", "#3393FF", "#33B8FF", "#33DAFF", "#2A9CBE"]);
         }
-        else if (Year == "Year 2019") {
-          var totalWords = 21471
-          var uniqueWords = 3217
-          var approxHeadlines = 327
+        else if (Year == "Year 2020") {
+          var totalWords = 318772
+          var uniqueWords = 25303
+          var approxHeadlines = 40240
           var color = d3v5.scaleOrdinal(["#26466D", "#506987", "#ff453a", "#5190ED"]);
         }
+        else if (Year == "Year 2019") {
+          var totalWords = 266197
+          var uniqueWords = 25464
+          var approxHeadlines = 34060
+          var color = d3v5.scaleOrdinal(["#ffa200", "#719a2e", "#ad0052", "#ea2c01", "#eac016", "#156eb7", "#dc317e"]);
+        }
         else if (Year == "Year 2018") {
-          var totalWords = 64484
-          var uniqueWords = 9125
-          var approxHeadlines = 330
-          var color = d3v5.scaleOrdinal(["Black", "Black", "Black", "Red", "Black", "Black", "Red"]);
+          var totalWords = 311963
+          var uniqueWords = 27606
+          var approxHeadlines = 40102
+          var color = d3v5.scaleOrdinal(["Orange", "Orange", "Red", "Red", "Pink", "Pink", "Pink"]);
         }
         else if (Year == "Year 2017") {
-          var totalWords = 64484
-          var uniqueWords = 9125
-          var approxHeadlines = 330
-          var color = d3v5.scaleOrdinal(["Black", "Black", "Black", "Red", "Black", "Black", "Red"]);
+          var totalWords = 372907
+          var uniqueWords = 30018
+          var approxHeadlines = 47511
+          var color = d3v5.scaleOrdinal(["Gray", "Gray", "Green", "Green", "Green", "Red", "Red"]);
         }
         else {
           var color = d3v5.scaleOrdinal(["#2b1d0e", "#52361b", "#4B5320", "#AFAA44", "#877E3D", "#800000", "#DAA520"]);
         }
 
-        d3v5.select("#divIntro").html("News Headlines layout a gist of happenings around the world. With the advent of huge amount of informations, News Headlines will play a role in indexing the news for the future generation to look back and retrospect. Please use the <span style='color: #0031ad;font-size: 20pt;font-weight: bold;'>Year selection</span> in the left to explore one of the past 5 years.</br>"
+        d3v5.select("#divIntro").html("News Headlines layout a gist of happenings around the world. With the advent of information overload syndrome, News Headlines will play a role in indexing the news for the future generation to look back and retrospect. Please use the <span style='color: #0031ad;font-size: 20pt;font-weight: bold;'>Year selection</span> in the left to explore one of the past 5 years.</br>"
           + "<span style='color: #ad0052;font-size: 20pt;'>"
           + Year + "</span> had headlines with <introBold>"
           + totalWords + "</introBold> total words and <introBold>"
@@ -227,7 +221,7 @@
         d3v5.select("#pTitle").html("Top Words Used in News Headlines in <span style='color: #ad0052;font-size: 20pt;'>" + Year + "</span>");
 
 
-        d3v5.csv(SpeechFile).then(function (data) {
+        d3v5.csv(NewsFile).then(function (data) {
 
           //clear existing charts 
           d3v5.selectAll("svg").remove();
@@ -295,7 +289,6 @@
             .attr("text-anchor", "middle")
             .text(function (d) { return d.data["Name"]; })
             .style("fill", "white")
-            .style("font-family", Band)
             //.call(fontSize)
             .style("font-size", function (d) { return (d.r / d.data["Name"].length) + 6 + "px"; })
             .attr("fake", d => console.log(d.r, d.data["Name"].length));
@@ -413,7 +406,7 @@
           width = 1500 - margin.left - margin.right,
           height = 800 - margin.top - margin.bottom;
 
-        var svg3 = d3.select("body")
+        var svg3 = d3.select("#charts")
           .append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
@@ -424,60 +417,39 @@
         /* Data in strings like it would be if imported from a csv */
 
         var data = [
-          { word: "like", Beatles: "57", Dylan: "200", Bruce: "87", Eminem: "581", Miranda: "49" },
-          { word: "know", Beatles: "135", Dylan: "167", Bruce: "94", Eminem: "302", Miranda: "44" },
-          { word: "don't", Beatles: "83", Dylan: "29", Bruce: "164", Eminem: "426", Miranda: "25" },
-          { word: "love", Beatles: "298", Dylan: "119", Bruce: "151", Eminem: "127", Miranda: "8" },
-          { word: "get", Beatles: "84", Dylan: "101", Bruce: "43", Eminem: "410", Miranda: "46" },
-          { word: "got", Beatles: "44", Dylan: "155", Bruce: "120", Eminem: "236", Miranda: "25" },
-          { word: "one", Beatles: "45", Dylan: "141", Bruce: "77", Eminem: "197", Miranda: "30" },
-          { word: "back", Beatles: "82", Dylan: "77", Bruce: "85", Eminem: "224", Miranda: "20" },
-          { word: "oh", Beatles: "82", Dylan: "121", Bruce: "89", Eminem: "153", Miranda: "23" },
-          { word: "go", Beatles: "42", Dylan: "99", Bruce: "54", Eminem: "229", Miranda: "11" },
-          { word: "say", Beatles: "96", Dylan: "103", Bruce: "45", Eminem: "163", Miranda: "25" },
-          { word: "ain't", Beatles: "5", Dylan: "92", Bruce: "86", Eminem: "242", Miranda: "5" },
-          { word: "see", Beatles: "53", Dylan: "128", Bruce: "37", Eminem: "171", Miranda: "32" },
-          { word: "let", Beatles: "76", Dylan: "60", Bruce: "63", Eminem: "176", Miranda: "35" },
-          { word: "well", Beatles: "42", Dylan: "184", Bruce: "110", Eminem: "50", Miranda: "8" },
-          { word: "gonna", Beatles: "33", Dylan: "161", Bruce: "41", Eminem: "104", Miranda: "49" },
-          { word: "come", Beatles: "73", Dylan: "96", Bruce: "97", Eminem: "103", Miranda: "14" },
-          { word: "never", Beatles: "52", Dylan: "74", Bruce: "35", Eminem: "177", Miranda: "31" },
-          { word: "cause", Beatles: "13", Dylan: "13", Bruce: "36", Eminem: "296", Miranda: "8" },
-          { word: "man", Beatles: "35", Dylan: "107", Bruce: "49", Eminem: "108", Miranda: "41" },
-          { word: "time", Beatles: "29", Dylan: "83", Bruce: "23", Eminem: "121", Miranda: "63" },
-          { word: "want", Beatles: "47", Dylan: "70", Bruce: "67", Eminem: "129", Miranda: "5" },
-          { word: "way", Beatles: "47", Dylan: "69", Bruce: "37", Eminem: "147", Miranda: "11" },
-          { word: "cant", Beatles: "42", Dylan: "78", Bruce: "32", Eminem: "138", Miranda: "7" },
-          { word: "make", Beatles: "28", Dylan: "63", Bruce: "32", Eminem: "156", Miranda: "16" },
-          { word: "take", Beatles: "23", Dylan: "44", Bruce: "38", Eminem: "136", Miranda: "40" },
-          { word: "yeah", Beatles: "85", Dylan: "3", Bruce: "68", Eminem: "109", Miranda: "1" },
-          { word: "you're", Beatles: "29", Dylan: "17", Bruce: "42", Eminem: "153", Miranda: "23" },
-          { word: "think", Beatles: "25", Dylan: "52", Bruce: "14", Eminem: "165", Miranda: "5" },
-          { word: "baby", Beatles: "9", Dylan: "51", Bruce: "84", Eminem: "111", Miranda: "0" },
-          { word: "fuck", Beatles: "0", Dylan: "0", Bruce: "0", Eminem: "248", Miranda: "0" },
-          { word: "night", Beatles: "20", Dylan: "55", Bruce: "122", Eminem: "49", Miranda: "1" },
-          { word: "little", Beatles: "36", Dylan: "36", Bruce: "72", Eminem: "97", Miranda: "2" },
-          { word: "shit", Beatles: "0", Dylan: "0", Bruce: "1", Eminem: "231", Miranda: "0" },
-          { word: "need", Beatles: "58", Dylan: "49", Bruce: "20", Eminem: "84", Miranda: "15" },
-          { word: "that's", Beatles: "7", Dylan: "7", Bruce: "40", Eminem: "149", Miranda: "12" },
-          { word: "could", Beatles: "20", Dylan: "70", Bruce: "23", Eminem: "93", Miranda: "7" },
-          { word: "away", Beatles: "21", Dylan: "42", Bruce: "38", Eminem: "41", Miranda: "65" },
-          { word: "girl", Beatles: "43", Dylan: "20", Bruce: "49", Eminem: "91", Miranda: "2" },
-          { word: "shot", Beatles: "1", Dylan: "25", Bruce: "11", Eminem: "50", Miranda: "108" },
-          { word: "good", Beatles: "42", Dylan: "51", Bruce: "31", Eminem: "41", Miranda: "7" },
-          { word: "every", Beatles: "15", Dylan: "42", Bruce: "21", Eminem: "54", Miranda: "39" },
-          { word: "wait", Beatles: "2", Dylan: "20", Bruce: "17", Eminem: "23", Miranda: "106" },
-          { word: "nah", Beatles: "162", Dylan: "0", Bruce: "0", Eminem: "4", Miranda: "0" },
-          { word: "new", Beatles: "7", Dylan: "41", Bruce: "7", Eminem: "55", Miranda: "49" },
-          { word: "home", Beatles: "40", Dylan: "24", Bruce: "29", Eminem: "33", Miranda: "7" },
-          { word: "tonight", Beatles: "4", Dylan: "26", Bruce: "61", Eminem: "25", Miranda: "1" },
-          { word: "la", Beatles: "17", Dylan: "0", Bruce: "88", Eminem: "2", Miranda: "0" },
+          { word: "UN", Year2021: "35", Year2020: "57", Year2019: "87", Year2018: "156", Year2017: "164" },
+          { word: "covid", Year2021: "1879", Year2020: "2711", Year2019: "0", Year2018: "0", Year2017: "0" },
+          { word: "obama", Year2021: "2", Year2020: "26", Year2019: "8", Year2018: "28", Year2017: "70" },
+          { word: "trump", Year2021: "273", Year2020: "990", Year2019: "709", Year2018: "1089", Year2017: "1341" },
+          { word: "taliban", Year2021: "50", Year2020: "15", Year2019: "15", Year2018: "19", Year2017: "9" },
+          { word: "nasa", Year2021: "25", Year2020: "49", Year2019: "47", Year2018: "35", Year2017: "40" },
+          { word: "love", Year2021: "18", Year2020: "31", Year2019: "66", Year2018: "72", Year2017: "89" },
+          { word: "like", Year2021: "36", Year2020: "104", Year2019: "101", Year2018: "101", Year2017: "144" },
+          { word: "deaths", Year2021: "90", Year2020: "251", Year2019: "89", Year2018: "90", Year2017: "108" },
+          { word: "fire", Year2021: "180", Year2020: "446", Year2019: "519", Year2018: "449", Year2017: "475" },
+          { word: "china", Year2021: "220", Year2020: "707", Year2019: "454", Year2018: "457", Year2017: "334" },
+          { word: "north korea", Year2021: "27", Year2020: "89", Year2019: "92", Year2018: "216", Year2017: "369" },
+          { word: "election", Year2021: "132", Year2020: "676", Year2019: "710", Year2018: "441", Year2017: "608" },
+          { word: "pandemic", Year2021: "113", Year2020: "551", Year2019: "1", Year2018: "1", Year2017: "2" },
+          { word: "cases", Year2021: "524", Year2020: "931", Year2019: "32", Year2018: "43", Year2017: "48" },
+          { word: "usa", Year2021: "10", Year2020: "27", Year2019: "26", Year2018: "15", Year2017: "15" },
+          { word: "lockdown", Year2021: "385", Year2020: "540", Year2019: "12", Year2018: "5", Year2017: "6" },
+          { word: "vaccine", Year2021: "689", Year2020: "329", Year2019: "26", Year2018: "15", Year2017: "33" },
+          { word: "economy", Year2021: "35", Year2020: "172", Year2019: "98", Year2018: "58", Year2017: "69" },
+          { word: "women", Year2021: "149", Year2020: "222", Year2019: "240", Year2018: "349", Year2017: "346" },
+          { word: "border", Year2021: "197", Year2020: "686", Year2019: "62", Year2018: "103", Year2017: "62" },
+          { word: "immigration", Year2021: "9", Year2020: "21", Year2019: "26", Year2018: "55", Year2017: "63" },
+          { word: "big", Year2021: "59", Year2020: "152", Year2019: "155", Year2018: "297", Year2017: "441" },
+          { word: "restrictions", Year2021: "224", Year2020: "858", Year2019: "25", Year2018: "21", Year2017: "22" },
+          { word: "google", Year2021: "23", Year2020: "54", Year2019: "45", Year2018: "45", Year2017: "34" },
+          { word: "russia", Year2021: "27", Year2020: "100", Year2019: "73", Year2018: "204", Year2017: "175" },
+          { word: "fifa", Year2021: "3", Year2020: "7", Year2019: "11", Year2018: "57", Year2017: "25" },
         ];
 
         // Transpose the data into layers
-        var dataset = d3.layout.stack()(["Beatles", "Dylan", "Bruce", "George W. Bush", "Miranda"].map(function (band) {
+        var dataset = d3.layout.stack()(["Year2021", "Year2020", "Year2019", "Year2018", "Year2017"].map(function (year) {
           return data.map(function (d) {
-            return { x: d.word, y: +d[band] };
+            return { x: d.word, y: +d[year] };
           });
         }));
 
@@ -491,7 +463,7 @@
           .domain([0, d3.max(dataset, function (d) { return d3.max(d, function (d) { return d.y0 + d.y; }); })])
           .range([height, 0]);
 
-        var colors = ["ad0052", "#2A9CBE", "#26466D", "black"];
+        var colors = ["#2A9CBE", "blue", "#dc317e", "Pink", "Red"];
 
 
         // Define and draw axes
@@ -568,10 +540,11 @@
           .style("text-anchor", "start")
           .text(function (d, i) {
             switch (i) {
-              case 0: return "George W. Bush";
-              case 1: return "Bill Clinton";
-              case 2: return "Barack Obama";
-              case 3: return "Donald Trump";
+              case 0: return "Year2017";
+              case 1: return "Year2018";
+              case 2: return "Year2019";
+              case 3: return "Year2020";
+              case 4: return "Year2021";
             }
           });
 
@@ -595,82 +568,58 @@
 
         //annotations
 
-        //Eminem
+        //Year2018
         svg3.append("g")
           .append("line")
           .style("stroke", "black")  // color 
-          .attr("x1", 25)
-          .attr("y1", 50)
-          .attr("x2", 175)
-          .attr("y2", 25)
-          .style("opacity", .2);
+          .attr("x1", 65)
+          .attr("y1", 500)
+          .attr("x2", 220)
+          .attr("y2", 20)
+          .style("opacity", .8);
 
         svg3.append("g")
           .append("line")
           .style("stroke", "black")
-          .attr("x1", 115)
-          .attr("y1", 215)
-          .attr("x2", 175)
-          .attr("y2", 25)
-          .style("opacity", .2);
+          .attr("x1", 65)
+          .attr("y1", 100)
+          .attr("x2", 220)
+          .attr("y2", 20)
+          .style("opacity", .8);
 
         svg3.append("text")
           .attr('font-color', 'grey')
           .style("font-size", 20)
-          .attr("x", 180)
-          .attr("y", 25)
+          .attr("x", 220)
+          .attr("y", 20)
           .style("opacity", .5)
-          .text("Eminem loved 'like' more than he liked 'love'.");
+          .text("Year 2020 & 2021 standout for COVID virus news");
 
-        //Beatles and Bruce
+        //Year2021 and Year2019
         svg3.append("g")
           .append("line")
           .style("stroke", "black")
-          .attr("x1", 1200)
+          .attr("x1", 1160)
           .attr("y1", 630)
           .attr("x2", 1100)
           .attr("y2", 200)
           .style("opacity", .2);
 
-        svg3.append("g")
-          .append("line")
-          .style("stroke", "black")
-          .attr("x1", 1100)
-          .attr("y1", 600)
-          .attr("x2", 1100)
-          .attr("y2", 200)
-          .style("opacity", .2);
-
         svg3.append("text")
           .attr('font-color', 'grey')
           .style("font-size", 20)
-          .attr("x", 700)
+          .attr("x", 1100)
           .attr("y", 200)
           .style("opacity", .5)
-          .text("All the Beatles 'nah's came from 'Hey Jude';");
-        svg3.append("text")
-          .attr('font-color', 'grey')
-          .style("font-size", 20)
-          .attr("x", 613)
-          .attr("y", 220)
-          .style("opacity", .5)
-          .text("all of Bruce Springsteens 'la's came from 'Jersey Girl'.");
+          .text("Russian sanctions in 2017 and 2018");
+
 
         //S and F
         svg3.append("g")
           .append("line")
           .style("stroke", "black")
-          .attr("x1", 850)
-          .attr("y1", 540)
-          .attr("x2", 800)
-          .attr("y2", 380)
-          .style("opacity", .2);
-
-        svg3.append("g")
-          .append("line")
-          .style("stroke", "black")
-          .attr("x1", 775)
-          .attr("y1", 540)
+          .attr("x1", 782)
+          .attr("y1", 604)
           .attr("x2", 800)
           .attr("y2", 380)
           .style("opacity", .2);
@@ -678,10 +627,10 @@
         svg3.append("text")
           .attr('font-color', 'grey')
           .style("font-size", 20)
-          .attr("x", 580)
-          .attr("y", 370)
+          .attr("x", 600)
+          .attr("y", 380)
           .style("opacity", .5)
-          .text("Eminem's the only one to give an 'F', or an 'S'.");
+          .text("COVID vaccine and rollout success 2020 and 2021.");
 
 
 
