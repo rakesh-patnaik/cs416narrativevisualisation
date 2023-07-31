@@ -449,7 +449,7 @@
         // Transpose the data into layers
         var dataset = d3.layout.stack()(["Year2021", "Year2020", "Year2019", "Year2018", "Year2017"].map(function (year) {
           return data.map(function (d) {
-            return { x: d.word, y: +d[year] };
+            return { x: d.word, y: +d[year], z: year };
           });
         }));
 
@@ -491,7 +491,20 @@
           .style("font-size", 15)
           .style("text-anchor", "end");
 
+        // Prep the tooltip bits, initial display is hidden
+        var tooltip = svg3.append("div").attr("class", "toolTip");
 
+        tooltip.append("rect")
+          .attr("width", 250)
+          .attr("height", 35)
+          .attr("fill", "white")
+          .style("opacity", .8);
+
+        tooltip.append("text")
+          .attr("x", 15)
+          .attr("dy", "1.2em")
+          .style("text-anchor", "left")
+          .attr("font-size", "20px");
 
         // Create groups for each series, rects for each segment 
         var groups = svg3.selectAll("g.cost")
@@ -509,14 +522,20 @@
           .attr("y", function (d) { return y(d.y0 + d.y); })
           .attr("height", function (d) { return y(d.y0) - y(d.y0 + d.y); })
           .attr("width", x.rangeBand() - 2)
-
-          .on("mouseover", function () { tooltip.style("display", null); })
-          .on("mouseout", function () { tooltip.style("display", "none"); })
-          .on("mousemove", function (d) {
+          .on("mouseover", function (d) {
             var xPosition = d3.mouse(this)[0] - 15;
             var yPosition = d3.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text('"' + d.x + '" : ' + d.y + " times");
+            div.transition()
+              .duration(200)
+              .style("opacity", .9);
+            div.html('"' + d.x + '" : ' + d.y + " times. In " + d.z)
+              .style("left", xPosition + "px")
+              .style("top", yPosition + "px");
+          })
+          .on("mouseout", function (d) {
+            div.transition()
+              .duration(500)
+              .style("opacity", 0);
           });
 
 
@@ -549,22 +568,7 @@
           });
 
 
-        // Prep the tooltip bits, initial display is hidden
-        var tooltip = svg3.append("g")
-          .attr("class", "tooltip")
-          .style("display", "none");
 
-        tooltip.append("rect")
-          .attr("width", 200)
-          .attr("height", 35)
-          .attr("fill", "white")
-          .style("opacity", .8);
-
-        tooltip.append("text")
-          .attr("x", 15)
-          .attr("dy", "1.2em")
-          .style("text-anchor", "left")
-          .attr("font-size", "20px");
 
         //annotations
 
